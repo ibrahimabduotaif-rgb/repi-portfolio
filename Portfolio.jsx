@@ -2,9 +2,6 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, LineChart, Line, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Database, BarChart2, Building2, LineChart as LineIcon, FileSpreadsheet, Mail, Phone, Linkedin } from "lucide-react";
-// Papa and XLSX are accessed via window object, assuming they are loaded from a script tag.
-
-
 
 const TS_RECENT = [
   { period: "2023 Q3", overall: 99.98, residential: 99.77, commercial: 100.23, agricultural: 104.64 },
@@ -49,7 +46,6 @@ const COMP_Q2_2025 = [
 
 const COLORS = ['#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ef4444', '#eab308', '#64748b', '#d946ef', '#06b6d4', '#22c55e', '#f59e0b', '#7e22ce', '#be123c'];
 
-/* ================== UI Components ================== */
 const Card = ({ children, className = "" }) => <div className={`rounded-xl bg-gray-800/50 border border-gray-700 shadow ${className}`}>{children}</div>;
 const CardContent = ({ children, className = "" }) => <div className={`p-4 sm:p-6 ${className}`}>{children}</div>;
 const Button = ({ children, variant = "default", size = "default", className = "", ...props }) => {
@@ -81,7 +77,6 @@ const TabsContent = ({ children, value }) => {
 
 const ScrollArea = ({ children, style }) => <div style={style} className="overflow-auto">{children}</div>;
 
-/* ================== Helper Components ================== */
 const Pill = ({ children }) => (
   <span className="px-3 py-1 rounded-full bg-gray-700 text-gray-200 text-sm">{children}</span>
 );
@@ -135,7 +130,6 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-/* ==================== Main Application ==================== */
 export default function Portfolio() {
   const headline = useMemo(() => {
     const last = TS_RECENT[TS_RECENT.length - 1];
@@ -238,7 +232,7 @@ export default function Portfolio() {
         </section>
 
         <section id="ts" className="py-6">
-          <h2 className="text-2xl font-bold mb-3 flex items-center gap-2 text-white"><LineIcon className="w-6 h-6 text-blue-400" />السلاسل الزمنية — سكني/تجاري/زراعي</h2>
+          <h2 className="text-2xl font-bold mb-3 flex items, gap-2 text-white"><LineIcon className="w-6 h-6 text-blue-400" />السلاسل الزمنية — سكني/تجاري/زراعي</h2>
           <Card>
             <CardContent>
               <ResponsiveContainer width="100%" height={320}>
@@ -335,7 +329,7 @@ export default function Portfolio() {
 
         <section id="forecast" className="py-6">
           <h2 className="text-2xl font-bold mb-2 text-white">تنبؤ مبسّط (خطّي) للمؤشر العام</h2>
-          <p className="text-sm text-gray-400 mb-3">تنبيه: نموذج توضيحي فقط. للاستخدام الفعلي يُفضّل تجارب نماذج متقدمة (ARIMA/Prophet/ML) مع تحقّق دقة.</p>
+          <p className="text-sm text-gray-400 mb-3">تنبيه: نموذج توضيحي فقط. للاستخدام الفعلي يُفضّل تجارب نماذج زمنية وتقييم MAE/RMSE.</p>
           <Card>
             <CardContent>
               {(() => {
@@ -389,7 +383,7 @@ export default function Portfolio() {
         </section>
 
         <section id="uploader" className="py-6">
-          <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-white"><FileSpreadsheet className="w-6 h-6 text-blue-400" />ارفع ملفك (CSV/Excel) — EDA سريع</h2>
+          <h2 className="text-2l font-bold mb-2 flex items, gap-2 text-white"><FileSpreadsheet className="w-6 h-6 text-blue-400" />ارفع ملفك (CSV/Excel) — EDA سريع</h2>
           <div className="flex items-center gap-3">
             <Input type="file" accept=".csv,.xlsx,.xls" onChange={(e) => handleUpload(e.target.files?.[0])} />
             {csvName && <Pill>{csvName}</Pill>}
@@ -422,13 +416,13 @@ export default function Portfolio() {
         </section>
 
         <section id="contact" className="py-10">
-          <h2 className="text-2xl font-bold mb-4 text-white">تواصل</h2>
+          <h2 className="text-2l font-bold mb-4 text-white">تواصل</h2>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
             <Card><CardContent>
               <div className="grid gap-3">
                 <a href="mailto:Ibrahimabduotaif@gmail.com" className="text-gray-300 hover:text-blue-400 flex items-center gap-2"><Mail className="w-4 h-4" /> Ibrahimabduotaif@gmail.com</a>
                 <a href="tel:+966561992496" className="text-gray-300 hover:text-blue-400 flex items-center gap-2"><Phone className="w-4 h-4" /> +966 56 199 2496</a>
-                <a href="https://www.linkedin.com/in/ebrahimotaif24" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-blue-400 flex items-center gap-2"><Linkedin className="w-4 h-4" /> linkedin.com/in/ebrahimotaif24</a>
+                <a href="https://www.linkedin.com/in/ebrahimotaif24" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-blue-400 flex items, gap-2"><Linkedin className="w-4 h-4" /> linkedin.com/in/ebrahimotaif24</a>
               </div>
             </CardContent></Card>
             <Card><CardContent>
@@ -445,15 +439,22 @@ export default function Portfolio() {
   );
 }
 
-/* ====== Helper component for column profiling ====== */
 function Profile({ rows }) {
   const cols = Object.keys(rows[0] || {});
   const stats = cols.map((c) => {
     const vals = rows.map(r => r[c]).filter(v => v !== undefined && v !== null && v !== "");
     const missing = rows.length - vals.length;
-    const nums = vals.map(v => Number(String(v).replace(/,/g, ''))).filter(n => !isNaN(n));
+    const nums = vals
+      .map(v => Number(String(v).replace(/,/g, '')))
+      .filter(n => !isNaN(n));
     const mean = nums.length ? (nums.reduce((a, b) => a + b, 0) / nums.length) : null;
-    return { column: c, count: rows.length, missing, numeric_count: nums.length, mean: mean === null ? "-" : Number(mean.toFixed(2)) };
+    return {
+      column: c,
+      count: rows.length,
+      missing,
+      numeric_count: nums.length,
+      mean: mean === null ? "-" : Number(mean.toFixed(2)),
+    };
   });
   return <Table columns={[{ key: "column", title: "العمود" }, { key: "count", title: "السجلات" }, { key: "missing", title: "قيم ناقصة" }, { key: "numeric_count", title: "قيم رقمية" }, { key: "mean", title: "متوسط (رقمي)" }]} data={stats} />;
 }
