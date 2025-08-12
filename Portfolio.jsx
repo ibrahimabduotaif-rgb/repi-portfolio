@@ -4,11 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, LineChart,
 import { Database, BarChart2, Building2, LineChart as LineIcon, FileSpreadsheet, Mail, Phone, Linkedin } from "lucide-react";
 // Papa and XLSX are accessed via window object, assuming they are loaded from a script tag.
 
-/* =====================================================
-   📊 بيانات حقيقية من الهيئة العامة للإحصاء (REPI)
-   مصدر الملفات: Q1 & Q2 2025 (EN/AR) — مرفوعة من المستخدم
-   تم تلخيصها هنا كـ ثوابت جاهزة للعرض التفاعلي
-   ===================================================== */
+
 
 const TS_RECENT = [
   { period: "2023 Q3", overall: 99.98, residential: 99.77, commercial: 100.23, agricultural: 104.64 },
